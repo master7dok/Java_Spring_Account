@@ -1,5 +1,4 @@
 package com.javastart.hellospring.controller.entity;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,9 +13,9 @@ public class Account {
     private Long id;
     private String name;
     private String email;
-    private String bill;
+    private Integer bill;
 
-    public Account(Long id, String name, String email, String bill) {
+    public Account(Long id, String name, String email, Integer bill) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -24,6 +23,10 @@ public class Account {
     }
 
     public Account(String name, String email, Integer bill) {
+    }
+
+    public Account() {
+
     }
 
     public Long getId() {
@@ -50,11 +53,11 @@ public class Account {
         this.email = email;
     }
 
-    public String getBill() {
+    public Integer getBill() {
         return bill;
     }
 
-    public void setBill(String bill) {
+    public void setBill(Integer bill) {
         this.bill = bill;
     }
 
