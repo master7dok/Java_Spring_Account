@@ -1,12 +1,13 @@
 package com.javastart.hellospring.service;
 
 
-import com.javastart.hellospring.controller.AccountController;
 import com.javastart.hellospring.controller.entity.Account;
 import com.javastart.hellospring.exception.AccountNotFoundException;
 import com.javastart.hellospring.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,17 +15,29 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final AccountService2 accountService2;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository, AccountService2 accountService2) {
         this.accountRepository = accountRepository;
+        this.accountService2 = accountService2;
     }
 
+
+
+    @Transactional()
     public Long createAccount(String name, String email, Integer bill) {
         Account account = new Account(name, email, bill);
-        return accountRepository.save(account).getId();
+        Account account1 = accountRepository.save(account);
+        accountService2.saveAccount2();
+        int a = 1/0;
+        Account account2 = new Account("Account2", "master@gmail.com", 1000);
+        accountRepository.save(account2);
+        return account1.getId();
 
     }
+
+
 
     public Account getAccountById(Long id){
         return accountRepository.findById(id)

@@ -38,6 +38,10 @@ public class AccountController {
         return new AccountResponseDto((accountService.getAccountById(id)));
 
     }
+//@GetMapping("/string")
+//    public String getString(@RequestParam(name = "ABC", required = false, defaultValue = "Misha  ") String line){
+//
+//    }
 @GetMapping("/accounts")
     public List<AccountResponseDto> getAll(){
         return accountService.getAll().stream().map(AccountResponseDto::new)
